@@ -145,7 +145,7 @@
 
 ### Проверки и ограничения
 
-137 unit-тестов; новые E2E: core 6, UI 6, developer 3 и контролируемый SOCKS5 Tor isolation 1. Реальный Tor smoke достиг bootstrap 100%, загрузил собственный временный v3 onion-сервис, проверил основной документ/cross-origin iframe без WebRTC/Node/IPC, выполнил circuit request, заменил профиль при New Identity и остановил daemon. Артефакты: `artifacts/tor-network-smoke.json` и `artifacts/tor-owned-onion.png`. Итог полного набора и сборки: [TEST_REPORT.md](TEST_REPORT.md).
+137 unit-тестов; новые E2E: core 6, UI 6, developer 3 и контролируемый SOCKS5 Tor isolation 1. Реальный Tor smoke достиг bootstrap 100%, загрузил собственный временный v3 onion-сервис, проверил основной документ/cross-origin iframe без WebRTC/Node/IPC, выполнил circuit request, заменил профиль при New Identity и остановил daemon. Артефакты: `artifacts/tor-network-smoke.json` и `artifacts/tor-owned-onion.png`. Итог полного набора и сборки: [TEST_REPORT.md](docs/release-validation.md).
 
 Остаются: подписание установщика, updater, all-platform Tor, полный DNS/WebRTC/IP аудит с захватом трафика, согласование лицензий Tor bundle, интерактивный PTY, расширения и полноценные workspace-контейнеры.
 

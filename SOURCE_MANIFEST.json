@@ -3,8 +3,8 @@
   "files": [
     {
       "path": ".github/workflows/ci.yml",
-      "bytes": 777,
-      "sha256": "b34c6603bcfa0ca5caa1ab82e04043caa51cb08c160c7765a52314ed63a47398"
+      "bytes": 911,
+      "sha256": "4b09453b8f5d25da6f083f2e45ca3beb069de802acd51c46ddbc252cc4bea0e6"
     },
     {
       "path": "public/scenes/PROVENANCE.md",
@@ -73,8 +73,8 @@
     },
     {
       "path": "scripts/release-readiness.mjs",
-      "bytes": 2708,
-      "sha256": "bbbf9139f23f965a5636f0e0e7397b048bf9e97fce416814c5c68b70925ba16d"
+      "bytes": 2957,
+      "sha256": "dde2097e4ebdea99814f1747bfda1563b89516c87ba23883cc5cd7dff50a07b8"
     },
     {
       "path": "src/main/header-review.ts",
@@ -343,8 +343,8 @@
     },
     {
       "path": "ARCHITECTURE.md",
-      "bytes": 13986,
-      "sha256": "de337fbe20f3ba76710dbf5719e060edcc258d0a63f43de260b00b7c220e7bf4"
+      "bytes": 13998,
+      "sha256": "01cec63f2a2dbca25b25a3d14bcee5250192c7273a40ff3d0048c16baf5089b1"
     },
     {
       "path": "ASSETS.md",
@@ -353,13 +353,13 @@
     },
     {
       "path": "BUILDING.md",
-      "bytes": 5748,
-      "sha256": "326c4724144e58b83dbfaae9c514dd7ad19bdfdbbfcdae07e946ad428e67c575"
+      "bytes": 5775,
+      "sha256": "04a38952e15f3e91dba839fd587a60f1e5d04a7804e92ae3624bdf495d18546e"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 23343,
-      "sha256": "60d4841be89d539e1249954ed65516f12064d6e5bbd9dab4bb759d4ca2497ce0"
+      "bytes": 23355,
+      "sha256": "9c3b917d2cdc72c7ffa3f933765b81885a20789c31789209a978fb3ce7934e2d"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -408,8 +408,8 @@
     },
     {
       "path": "TOR_MODE.md",
-      "bytes": 20542,
-      "sha256": "1f8caa19f58ae7fd155e1c06b2efc5b48ce63f008731c04700edcd13f7e84d8a"
+      "bytes": 20554,
+      "sha256": "f77df20fc84c857fc53c2ec9f0b5744cf169f83b40d5c1146dc38ad75fac199d"
     },
     {
       "path": "VPN_INTEGRATION.md",
@@ -418,8 +418,8 @@
     },
     {
       "path": "ZERO_GOOGLE.md",
-      "bytes": 12315,
-      "sha256": "35277d15d532407cd74dad87db022f33b4a8dd2121a04c9070835074298a7f42"
+      "bytes": 12342,
+      "sha256": "1ee51cef3ddfb142146d66798e70b4bc98bb172e0654d2cdc948cd137dac5263"
     },
     {
       "path": "build/raincode.ico",
@@ -1218,8 +1218,8 @@
     },
     {
       "path": "docs/release-validation.md",
-      "bytes": 1077,
-      "sha256": "d3966d2cae6769fd187d822030e6e849eb59f5cda60135ca59a3bd80925bde06"
+      "bytes": 1443,
+      "sha256": "bdcf96b963ef30d5e9f3240cf03ad0310d837f4e448ea1b9a5a59efd01b3fe68"
     }
   ],
   "excluded": "Runtime profiles, credentials, work logs, binary Tor bundle and Git history"

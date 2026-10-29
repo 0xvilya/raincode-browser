@@ -63,7 +63,7 @@ Tor Session получает SOCKS5 до навигации, без прямог
 
 Локализация ru/en размещена в словарях интерфейса, Developer Workspace и Tor. Сцена локальная, без hotlink/удалённых шрифтов.
 
-Vite/esbuild и electron-builder создают Windows-приложение. Подписи и updater пока отсутствуют, macOS/Linux не проверены, Tor binary интегрирован только для Windows x64. Расширения не устанавливаются; частичная поддержка upstream Electron API не означает паритет с Chrome Web Store. Итоги тестов — [TEST_REPORT.md](TEST_REPORT.md), дальнейшие этапы — [ROADMAP.md](ROADMAP.md).
+Vite/esbuild и electron-builder создают Windows-приложение. Подписи и updater пока отсутствуют, macOS/Linux не проверены, Tor binary интегрирован только для Windows x64. Расширения не устанавливаются; частичная поддержка upstream Electron API не означает паритет с Chrome Web Store. Итоги тестов — [TEST_REPORT.md](docs/release-validation.md), дальнейшие этапы — [ROADMAP.md](ROADMAP.md).
 
 ## Security Center и Split View — 0.5.3
 

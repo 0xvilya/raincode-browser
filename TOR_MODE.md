@@ -4,7 +4,7 @@
 
 Реальный сетевой smoke достиг bootstrap 100%, опубликовал собственный временный v3 onion-сервис и загрузил его внутри RainCode WebContents. В основном документе и cross-origin iframe проверены `RTCPeerConnection`, `process` и `window.raincode`: все отсутствовали. Запрос новой цепочки выполнен, New Identity заменил профиль, остановка daemon подтверждена. Артефакты: `artifacts/tor-network-smoke.json` и `artifacts/tor-owned-onion.png`. Временный адрес не публикуется и не является постоянной закладкой.
 
-Эти проверки не означают независимую аттестацию отсутствия DNS/IP-утечек, унификацию fingerprint или поддержку Tor на всех ОС. Полные результаты: [TEST_REPORT.md](TEST_REPORT.md).
+Эти проверки не означают независимую аттестацию отсутствия DNS/IP-утечек, унификацию fingerprint или поддержку Tor на всех ОС. Полные результаты: [TEST_REPORT.md](docs/release-validation.md).
 
 > Экспериментальный Tor Mode направляет соединение через сеть Tor, но RainCode Browser не обеспечивает тот же уровень защиты от fingerprinting, что официальный Tor Browser. Для задач, где критична анонимность, используйте официальный Tor Browser.
 

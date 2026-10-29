@@ -59,7 +59,7 @@ node scripts/background-audit.mjs --seconds=30
 
 Следующие этапы: сопоставление process-level captures, idle/internal/controlled HTTPS/search/Proxy/Tor интервалы, отказ proxy, Network Kill Switch и уже открытые соединения. У Kill Switch собственная задокументированная граница; не приписывайте ему контроль других программ ОС.
 
-Встроенная Dev Panel/HAR ограничена метаданными вкладок и не заменяет startup NetLog. Собственные соединения описаны в [PRIVACY.md](PRIVACY.md), фактические проверки — в [TEST_REPORT.md](TEST_REPORT.md), работа по этапам — в [PROGRESS.md](PROGRESS.md). Документация механизма: [Electron NetLog](https://www.electronjs.org/docs/latest/api/net-log), [поддерживаемые switches](https://www.electronjs.org/docs/latest/api/command-line-switches).
+Встроенная Dev Panel/HAR ограничена метаданными вкладок и не заменяет startup NetLog. Собственные соединения описаны в [PRIVACY.md](PRIVACY.md), фактические проверки — в [TEST_REPORT.md](docs/release-validation.md), работа по этапам — в [PROGRESS.md](docs/release-validation.md). Документация механизма: [Electron NetLog](https://www.electronjs.org/docs/latest/api/net-log), [поддерживаемые switches](https://www.electronjs.org/docs/latest/api/command-line-switches).
 
 ## Проверенный захват 24 октября 2026
 

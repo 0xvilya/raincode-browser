@@ -73,4 +73,4 @@ macOS/Linux targets присутствуют в electron-builder, но теку�
 - `RAINCODE_USER_DATA` — отдельный userData для непакетных E2E.
 - `RAINCODE_TEST` — отметка тестового окружения, не разрешение ослабить TLS/sandbox.
 
-Не публикуйте userData, SQLite, cookies, runtime Tor cookies, downloads, tokens и secrets. Папки build output/cache/artifacts исключены из Git; храните нужные проверочные артефакты отдельно. Итоговый статус установки, ярлыка, подписей и сборки: [PROGRESS.md](PROGRESS.md), [TEST_REPORT.md](TEST_REPORT.md).
+Не публикуйте userData, SQLite, cookies, runtime Tor cookies, downloads, tokens и secrets. Папки build output/cache/artifacts исключены из Git; храните нужные проверочные артефакты отдельно. Итоговый статус установки, ярлыка, подписей и сборки: [PROGRESS.md](docs/release-validation.md), [TEST_REPORT.md](docs/release-validation.md).
