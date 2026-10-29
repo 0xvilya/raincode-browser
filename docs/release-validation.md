@@ -1,0 +1,7 @@
+# Source preview 0.5.23
+
+Validated on Windows on 2026-10-29: lint, TypeScript, production build, 453 unit tests in 38 files and 93 Electron end-to-end tests passed. Tests cover permissions, narrow Shield/Tor layouts, AI panel widths, proxy routing and authentication, private-session cleanup, native WebGL policy, password consent and encrypted storage, navigation, DevTools and split panes. Controlled Tor tests are not an OS-wide packet-capture audit.
+
+This is a source preview, not a signed stable binary release. Windows publisher signing, a verified updater and complete corresponding-source/build materials for the bundled Tor GPL runtime remain release blockers. No macOS/Linux installer has been built or validated. The source-only CI command passed 449 tests locally; it excludes only the four Tor bundle integrity tests that require the separately downloaded runtime. All four were included in the full local run. Three packaged Windows UI tests also passed (AI layout, permission selection, Tor layout). The installer is unsigned (Authenticode: NotSigned). The CI matrix has not yet been verified on macOS/Linux. Tor runtime and user data are excluded from this repository snapshot.
+
+Canvas, font, Audio and WebGPU fingerprint standardization is incomplete. No claim of absolute anonymity, full de-Googling, absence of OS leaks or parity with Tor Browser is made. See PRIVACY.md, FINGERPRINTING.md, LICENSES.md and THREAT_MODEL.md.
