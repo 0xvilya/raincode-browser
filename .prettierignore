@@ -1,0 +1,9 @@
+node_modules
+dist
+dist-electron
+release
+package-lock.json
+public
+artifacts
+test-results
+playwright-report

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-electron/
+release/
+test-results/
+playwright-report/
+.cache/
+*.log
+.env*
+!.env.example
+*.sqlite*
+*.db*
+coverage/
+artifacts/
+vendor/tor/
