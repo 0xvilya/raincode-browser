@@ -29,7 +29,15 @@ if (exists && process.platform === "win32") {
     {
       encoding: "utf8",
       windowsHide: true,
-      env: { ...process.env, RAIN_RELEASE_ARTIFACT: installer },
+      // Let Windows PowerShell load its own modules when launched from PowerShell 7.
+      env: {
+        ...Object.fromEntries(
+          Object.entries(process.env).filter(
+            ([name]) => name.toLowerCase() !== "psmodulepath",
+          ),
+        ),
+        RAIN_RELEASE_ARTIFACT: installer,
+      },
     },
   );
   const signature = result.status === 0 ? result.stdout.trim() : "Unavailable";
