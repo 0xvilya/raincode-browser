@@ -1,117 +1,67 @@
 # RainCode Browser 0.5.23
 
-Под щитом в разделе «Монитор сети» доступно наблюдение за запросами выбранной открытой вкладки. Запись включается вручную и сохраняет в памяти только ограниченные группы доменов, типов и решений; кнопка остановки очищает их. Это наблюдение за запросами вкладки, а не проверка всех сетевых утечек операционной системы.
+A Chromium/Electron browser with a calm Rain interface, local AI connections, developer tools and explicit privacy controls.
 
-Настройки конфиденциальности находятся под щитом слева: защита/JavaScript/cookies, данные сайтов/поиск/восстановление сессии, разрешения, Tor, профили/прокси, DNS и конфиденциальность ИИ. В общих настройках остались оформление, производительность, импорт/экспорт и ссылка на центр щита. Прежние адреса security/network/tor открывают тот же центр с нужным разделом.
+[My Projects](https://0xvilya.github.io/my-projects/) · [Validation](docs/release-validation.md) · [Security policy](SECURITY.md) · [Roadmap](ROADMAP.md)
 
-Прокси существующего прокси-профиля изменяется в разделе сети: сначала сохраните данные и закройте его веб-вкладки, завершите загрузки. При смене сервера старые учётные данные удаляются, данные сайтов сохраняются. При ошибке конфигурации профиль остаётся без сети даже после перезапуска; примените настройки повторно. Указание «применено» не означает успешную проверку доступности. HTTP/HTTPS поддерживают защищённое хранение логина/пароля, SOCKS5 — без авторизации. Смена IP не создаёт новую личность.
+**Source preview.** This is not a signed stable binary release. Do not rely on RainCode for Tor Browser-level anonymity.
 
-Щит → Конфиденциальность ИИ позволяет остановить анализ, запретить все ИИ-запросы либо только облако. Отдельное разрешение чтения страницы/отправки остаётся обязательным. Ключи при отключении сохраняются в защищённом хранилище; удалить подключение и ключ можно в панели ИИ. Новые переключатели сохраняют прежнюю доступность ИИ при обновлении и сами ничего не отправляют.
+![Rain Tokyo scene](public/scenes/tokyo-rain-v1.png)
 
-В космической теме вместо дождя движутся небольшие обломки. Интенсивность задаётся существующим регулятором эффекта; Graphics Off, Reduced Motion и скрытие окна прекращают анимацию. Дождь других тем и снег Нью-Йорка сохранены. Проверенные результаты и ограничения находятся в docs/release-validation.md; полная анонимность и независимая проверка утечек не заявляются.
+## Available features
 
-Щит слева открывает единый центр конфиденциальности: защита, данные сайтов, разрешения/ИИ, Tor, профили и DNS. В панели ИИ → «Контекст страницы» → «Область анализа» выберите текст/теги или образец вычисленных CSS-стилей. Чтение CSS требует отдельного разрешения; весь фрагмент показывается до подтверждения отправки. Исходные таблицы стилей, Console/Network и Screen Vision пока не подключены.
+- Tabs, keyboard navigation, history, bookmarks, session restoration and independent split panes
+- Rain Shield: privacy presets, scoped site permissions, tracking controls, network monitor, proxy profiles and diagnostics
+- Separate Direct, Proxy, Private and Tor sessions with fail-closed rules for protected routes
+- Local password vault using OS-protected secrets, explicit save/fill consent and profile isolation
+- One AI panel for Ollama and compatible endpoints, explicit page-context preview and cloud consent
+- Chromium DevTools for the selected page, source viewing and a bounded local developer workspace
+- Twelve bundled artistic scenes, custom interface colors, motion/quality controls and reduced-motion support
 
-Все 12 сцен доступны в реалистичном оформлении: города, лес, горы, океан, сакура, космос, кибергород и спокойные фактуры для минимализма. Оригинальные локальные художественные ИИ-изображения; не документальные фотографии. Настройка «Изображение фона» переключает реалистичные и сохранённые векторные варианты. Исходное разрешение PNG — 1672×941; 4K не заявляется. Источники и набор промптов: public/scenes/PROVENANCE.md.
+Website content never receives the shell's privileged API. Renderer sandbox, context isolation, TLS validation and Chromium site isolation remain enabled. See [Architecture](ARCHITECTURE.md) and [Threat model](THREAT_MODEL.md).
 
-## Оформление и приватность
+## Platform status
 
-Настройки → Внешний вид: галерея 12 разных локальных сцен, включая снежный Нью-Йорк и неоновый Токио. Цвета панелей и акцента выбираются независимо от фона; повышенный контраст имеет приоритет. Снег использует тот же ограниченный по FPS движок, что дождь; Graphics Off / Reduced Motion / скрытое окно останавливают анимацию.
+| Platform | Current status |
+| --- | --- |
+| Windows x64 | Local unsigned preview built and tested; no public installer yet |
+| macOS | Native installer not built or validated |
+| Linux | Native installer not built or validated |
 
-ИИ расположен вверху левой панели и доступен из быстрых переходов настроек. В приватности выберите пресет и проверьте «Применено» / «Ожидает применения» перед нажатием «Применить защиту». Исключения сохраняются этой же кнопкой. Максимальный пресет отключает JavaScript и может ломать сайты; он не обещает анонимность. История, очистка при выходе и HTTPS управляются отдельно.
+Public binary distribution is blocked by publisher signing and completion of the Tor GPL corresponding-source/build materials. A signed updater and rollback are not implemented. Do not substitute nonexistent download URLs.
 
-Если установленная версия раньше 0.5.13, новые функции появятся после установки актуальной сборки — версия указана в «О браузере».
+## Run from source
 
-## Контекст страницы для ИИ
+Use Node.js 24+ and pnpm 11.25.0.
 
-После настройки модели откройте веб-страницу и панель **ИИ → Контекст страницы**. Выберите активную/первую/вторую/обе Split-панели, нажмите «Прочитать страницу для предпросмотра» и выдайте системное разрешение на один раз либо до навигации. Сначала прочитайте точный предпросмотр, затем отметьте согласие и отправьте вопрос. Для облачного провайдера нужно дополнительное подтверждение передачи. Предпросмотр одноразовый, действует60s; чтение и отправка по умолчанию выключены. Stop, закрытие панели, навигация и отзыв доступа удаляют разрешения/предпросмотры. Работает только с видимыми страницами того же Direct-профиля.
-
-Собираются только ограниченный читаемый текст и структура тегов. Формы, editable/скрытые области, скрипты, iframe, cookies/storage и параметры URL исключаются. Очевидные ключи/токены/email маскируются, но автоматическое удаление секретов не гарантируется — не отправляйте фрагмент, если предпросмотр содержит чувствительные данные. CSS/JS/Console/Network инспекция, снимки и Live ещё не подключены. Полная визуальная AI Vision не объявляется готовой.
-
-## Базовые возможности
-
-В левой панели есть **ИИ** (Ctrl+Shift+Y): настройте Ollama либо совместимый HTTPS Chat Completions endpoint, укажите реальный ID модели и при необходимости API-ключ. Сохранение не отправляет запрос; кнопка проверки подключения выполняет явный тест. Ключ хранится через шифрование ОС. Для облака требуется согласие на каждый запрос. ИИ пока работает только в Direct-профиле; полноценная инспекция CSS/JS/Console, скриншоты/Live/визуальное сравнение и нативные Anthropic/Gemini adapters ещё не подключены. Локальный Ollama runtime сам может использовать облачные модели — проверяйте его конфигурацию.
-
-В настройках **Фоновая сцена** меняет само изображение: London, Tokyo, New York, Paris и другие оригинальные локальные SVG-сцены. «Тема» отдельно задаёт палитру. В Центре безопасности и настройках есть Standard/Strict/Maximum, выбор JavaScript и сетевых Cookie/Set-Cookie, точные исключения сайтов. Strict фильтрует HTTP/WebSocket cookie headers, но не гарантирует полной изоляции стороннего JavaScript-хранилища. Применение политики закрывает контексты — сначала сохраните формы, затем обновите вкладки.
-
-Оболочка блокирует внешние HTTP/WS, удалённая проверка орфографии отключена. Полная независимость всего Chromium и ОС от Google пока не подтверждена; посещаемые сайты сохраняют собственные внешние зависимости. Справка по транспортному ограничению Response.url: [Electron net.fetch](https://www.electronjs.org/docs/latest/api/net/); формат совместимого потока: [официальная документация OpenAI](https://developers.openai.com/api/reference/resources/chat/subresources/completions/streaming-events).
-
-## Архив checkpoint 0.5.3
-
-Security Center и расширенный Split View/vertical tabs реализованы в исходниках и проверяются Windows directory build. Откройте `raincode://security` для локального аудита и site permission policies. Для Split откройте две вебстраницы и используйте кнопку разделения/контекстное меню вкладки; в панелях есть свои адреса и навигация, orientation/ratio/swap, а настройки вертикальных вкладок сохраняются. Internal pages закрывают разделение и занимают всю область; вебвкладки сохраняются.
-
-AI Vision / provider connections / AI chat / code or screen collection / Live / Compare остаются в разработке: в этом snapshot они не подключены и ничего не отправляют. Источник audit preferences — фактические объекты создания WebContents, не runtime introspection. Усиленная third-party cookie/fingerprint policy не заявляется. Это промежуточный этап большого ТЗ, не завершение всех трёх модулей. Установленный браузер0.5.2 и пользовательский профиль не обновляются ночной проверкой.
-
-В 0.5.2 исправлено холодное onion-подключение: предварительный TCP-stream только через Tor даёт сети завершить построение цепочки до Chromium SOCKS handshake. Сохранены sandbox/TLS/изоляция; нет системного DNS или прямого fallback. Реальный dev-прогон прошёл, включая холодный onion113s с первой попытки, поиск/ссылки/исходник/HTTPS и crash/identity/kill/clear. Windows-проверка описана в TEST_REPORT. Доступность всех сторонних сервисов не гарантируется. В 0.5.0 добавлены безопасное усыпление фоновых вкладок по таймеру (Настройки → Производительность, по умолчанию OFF), исключение «Не усыплять вкладку», ECO/BALANCED/ULTRA и полное отключение декоративного движка. Пресеты выставляют20/30/60 FPS только для декораций; лимит можно уменьшить вручную. Активные/split/pinned/interactive вкладки, обнаруженные медиа, разрешения, загрузки и сложные документы сохраняются в памяти; beforeunload не игнорируется. Произвольное состояние JavaScript не сериализуется: важные приложения исключайте вручную.
-
-Privacy теперь показывает реальные сетевые counters этого профиля, категории ads/analytics, источник и правило; есть Reset и exact-host исключения. Счётчики временные, cosmetic hiding в них не включено, полные URL/query/headers не сохраняются. Исключения действуют во всех профилях для точного hostname и не отменяют Tor/TLS/Kill Switch. Уровни Privacy Shield/fingerprinting/мосты/Theme Studio и полный subscription engine ещё не готовы; см.MASTER_TASKS. Native F5/Shift+F5/Ctrl+F5 поддерживаются.
-
-Для текущего чата настроена реальная Codex-автоматизация «Raincod Auto Continue» каждые6часов. Она читает NEXT_SESSION/PROGRESS/MASTER_TASKS и продолжает существующий проект при доступном выполнении. Обход лимитов/платные кредиты/публикация не разрешены; это не обещание доступности будущих запусков.
-
-Новое0.4.0: отдельный Tor-поисковик в Настройках (HTTPS или правильный onion v3 шаблон), локальная блокировка рекламы/промо DuckDuckGo с выключателем, брендированные ошибки404/410/нет результатов. Native-страница больше не перекрывает ошибку белым экраном. В Dev Panel → Page Info появились явные IP/ASN/network owner проверки; ниже — командная панель выбранного проекта с историей/Stop/Copy.
-
-Tor-вкладка открывает как clearnet HTTPS, так и доступные действительные onion v3 сайты через одну изолированную session. Поисковики имеют разные индексы, CAPTCHA/блокировки и исчезнувшие сервисы зависят от оператора; гарантии доступа к любому адресу нет. RainCode не подменяет неполный адрес вроде facebook.onion. Глобальный ad blocker ограничен локальными host/slot правилами, не гарантирует удаление любой встроенной/video рекламы. Командная панель — ограниченный неинтерактивный runner, не полноценный PTY; владелец ASN/CDN не доказывает origin hoster.
-
-Исправления0.3.1: заметный многослойный дождь с выбором system/full/reduced, чёткий поиск без blur/параллакса текста, диагностика неверных onion-адресов. HTTPS-only включён по умолчанию; устранён сброс Kill Switch при изменении других настроек. Это не VPN и не гарантия анонимности. Правила исключений и ограничения — в [SECURITY.md](SECURITY.md).
-
-Если Windows уменьшает движение, откройте Настройки → Производительность и движение → Режим анимации → «Включить анимации в RainCode». Это изменит только RainCode. `facebook.onion` не является действительным v3 адресом: нужен полный 56-символьный адрес от владельца сервиса.
-
-Настоящий браузер на Chromium/Electron для Windows с TypeScript, React и отдельными `WebContentsView` для сайтов. Версия 0.3.1 продолжает существующий проект: исправлены адресная строка, навигация и привязка Chromium DevTools; добавлены Network Kill Switch, защищённые proxy credentials и Security/Privacy Dashboard. Дождливый London Rain интерфейс сохранён.
-
-## Что работает
-
-- Omnibox с кириллицей, латиницей, composition events, локальными подсказками, Enter/Escape, Ctrl+L/K/Enter и Alt+Enter. Во время набора запросы подсказок в сеть не отправляются.
-- Назад/вперёд, reload/hard reload, вкладки, закрепление, дублирование, drag-and-drop, mute, восстановление выбранной закрытой вкладки и сессии. `raincode://history`, `raincode://recently-closed` и `raincode://workspaces` имеют разные маршруты.
-- Настоящие Chromium DevTools для выбранного WebContents: доступ к DOM, Console и штатным панелям Chromium. Ctrl+U открывает `view-source:` активного сайта. Доступны режимы DevTools detach/undocked/right/bottom через Electron API.
-- Security/Privacy Dashboard, Network Kill Switch внутри RainCode и защищённые HTTP/HTTPS proxy credentials через системное шифрование; без паролей в state/settings export. SOCKS5 authentication не поддерживается.
-- История, закладки, загрузки, настройки и workspace snapshots в SQLite; отдельные Direct, Proxy и непостоянные Private/Tor сессии.
-- Developer Workspace: выбор локальной папки, ограниченное чтение дерева/исходников, заметки, snippets с подтверждением, сетевые метаданные и очищенный HAR. Локальная команда запускается только после отдельного системного подтверждения. Это ограниченный неинтерактивный command runner, а не PTY-терминал.
-- Управляемый дождь/FPS, reduced motion, отключение bokeh/glass/glow/cinematic, энергосбережение, ручной сон вкладок и восстановление после сбоя renderer.
-
-Проверки включают lint, typecheck, unit/SQLite и Electron E2E, production build, настоящие HTTPS-переходы и собственный временный onion v3 через реальную сеть Tor. Точные результаты текущего snapshot: [проверки выпуска](docs/release-validation.md). Системный IME, все масштабы Windows и все панели DevTools отдельно не аттестованы.
-
-## Установка и запуск
-
-Пользователю готового Windows-приложения Node.js не нужен. Версия указана в `package.json`; проверенные установщики находятся в `release/<version>/RainCode Browser Setup <version>.exe`, распакованные сборки — в `release/<version>/win-unpacked/`. Результаты тестов: `docs/release-validation.md`. Перед публичным распространением запустите `node scripts/release-readiness.mjs`: он фиксирует блокеры подписи, комплектования Tor и непроведённых аудитов. Неподписанная тестовая сборка не объявляется публичным стабильным релизом.
-
-Для разработки нужны Node.js 24+ и pnpm 11.25.0:
-
-```powershell
-npm install -g pnpm@11.25.0
+```sh
 pnpm install --frozen-lockfile
-pnpm tor:prepare
 pnpm dev
 ```
 
-`tor:prepare` загружает официальный подписанный Tor Expert Bundle для Windows x64 и проверяет подпись. При обычном запуске браузер не скачивает Tor. Для полной проверки и упаковки подготовьте bundle заранее:
+The default browser works without downloading Tor. To prepare the pinned official Tor Expert Bundle on Windows x64, run `pnpm tor:prepare`; signature and integrity checks are mandatory. The runtime is not committed here. No automatic runtime/model download occurs merely by opening RainCode.
 
-```powershell
-pnpm verify
-pnpm format:check
-pnpm dist
+## Checks
+
+```sh
+pnpm lint
+pnpm typecheck
+pnpm exec vitest run --exclude tests/tor/tor-integrity.test.ts
+pnpm build
 ```
 
-Отдельные команды: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`, `pnpm test:e2e`, `pnpm package`. Подробнее: [BUILDING.md](BUILDING.md).
+The source-only command excludes four bundle integrity tests that require the separately downloaded Tor runtime. After preparing that runtime on Windows, `pnpm verify` runs the full local verification, including Electron E2E tests. CI checks source on Windows, macOS and Linux; it does not certify native installers or OS-wide leak resistance.
 
-## Experimental Tor Mode
+Local 0.5.23 results: **453 unit tests, 93 Electron E2E tests and 3 packaged Windows UI tests passed**. See the [validation report](docs/release-validation.md) for method limits. The published snapshot has a [SHA-256 file manifest](SOURCE_MANIFEST.json).
 
-Интегрирован настоящий C Tor daemon **0.4.9.14** из Expert Bundle **15.0.26**, проверяемый перед запуском. Есть явное включение, bootstrap, отдельная временная session, SOCKS5 без Direct fallback, circuit/identity/clear и остановка процесса. Проверен собственный временный v3 onion-сервис через реальную сеть Tor, без публичных gateway и случайных сайтов. В основном документе и cross-origin iframe проверены отсутствие `process`, `window.raincode` и `RTCPeerConnection`. Это не сертификат отсутствия всех DNS/IP-утечек: packet capture и независимый аудит ещё нужны.
+## Privacy limits
 
-Ввод v3 `.onion` требует подтверждения и открывает отдельную Tor-вкладку; существующий Direct-профиль не превращается в Tor. Нет Tor2web и отправки onion-адресов поисковику. Встроенный daemon пока предназначен только для Windows x64.
+No absolute anonymity, population-level fingerprint indistinguishability or full de-Googling is claimed. Canvas/font/Audio/WebGPU standardization, OS packet auditing, full screenshot/live AI Vision and several requested ecosystem tools remain incomplete. An IP change or a proxy is not a new identity. Visited websites can contact their own third-party services. Use the official Tor Browser when its anonymity model is required.
 
-> Экспериментальный Tor Mode направляет соединение через сеть Tor, но RainCode Browser не обеспечивает тот же уровень защиты от fingerprinting, что официальный Tor Browser. Для задач, где критична анонимность, используйте официальный Tor Browser.
+AI access is permission-scoped. Private/Tor context is blocked by default. Automatic secret redaction has limits: inspect every preview before sending. See [Privacy](PRIVACY.md), [Fingerprinting](FINGERPRINTING.md), [Tor](TOR_MODE.md) and [Google-service audit limits](ZERO_GOOGLE.md).
 
-## Приватность и безопасность
+## Contributing and licensing
 
-Нет рекламы, аналитического SDK, синхронизации истории или автоматически включённого crash reporter. Сцена и шрифты интерфейса локальные/системные. Собственные сетевые действия описаны в [PRIVACY.md](PRIVACY.md).
+[Contributing](CONTRIBUTING.md) · [Build details](BUILDING.md) · [Changelog](CHANGELOG.md)
 
-Недоверенные страницы используют `sandbox: true`, `contextIsolation: true`, `nodeIntegration: false`. Только Tor получает минимальный all-frame preload для удаления WebRTC/WebTransport API, без выдачи IPC/Node; особенность `nodeIntegrationInSubFrames` описана в ARCHITECTURE. IPC проверяет отправителя и Zod-контракты. Sandbox, TLS и Site Isolation не отключаются.
-
-Установщик пока не подписан; автоматического updater нет. Полная совместимость Chrome Extensions, интерактивный терминал и контейнеры каждого workspace не реализованы. Перед публичным распространением Tor-бинарников требуется подготовить полные corresponding sources/build материалы и license комплект конкретной GPL-сборки. Подробности: [LICENSES.md](LICENSES.md), [ROADMAP.md](ROADMAP.md).
-
-## Документация
-
-- [Архитектура](ARCHITECTURE.md), [модель угроз](THREAT_MODEL.md), [безопасность](SECURITY.md)
-- [Приватность](PRIVACY.md), [Tor Mode](TOR_MODE.md), [сборка](BUILDING.md)
-- [Изменения](CHANGELOG.md), [план развития](ROADMAP.md), [лицензии](LICENSES.md)
-- [Отчёт проверок](docs/release-validation.md), [участие в разработке](CONTRIBUTING.md), [сцена](ASSETS.md)
+RainCode application source: [MIT](LICENSE). Third-party components and artwork have separate notices in [LICENSES.md](LICENSES.md), [ASSETS.md](ASSETS.md) and [scene provenance](public/scenes/PROVENANCE.md). The scenes are original AI artwork, not documentary photographs. Publishing this source does not authorize redistribution of an incomplete Tor binary/source bundle.
