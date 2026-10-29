@@ -6,6 +6,7 @@ import {
   mkdtemp,
   readFile,
   readdir,
+  realpath,
   rm,
   symlink,
   writeFile,
@@ -35,7 +36,11 @@ import {
 
 let directory = "";
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), "raincode-secret-unit-"));
+  // macOS exposes /var through a system symlink. Start the fixture from its
+  // canonical temp directory while retaining every production link check.
+  directory = await mkdtemp(
+    join(await realpath(tmpdir()), "raincode-secret-unit-"),
+  );
   faults.rename = false;
 });
 afterEach(async () => {
