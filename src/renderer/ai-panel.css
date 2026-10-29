@@ -1,0 +1,340 @@
+.rain-ai-panel {
+  flex-shrink: 0;
+  width: clamp(300px, 30vw, 620px);
+  min-width: 300px;
+  max-width: min(720px, 90vw);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  resize: horizontal;
+  background: linear-gradient(165deg, #142735f2, #09151ff7);
+  border-left: 1px solid #bddee340;
+  color: #deecf2;
+  box-shadow: -20px 0 50px #020b13a6;
+  font-size: 13px;
+  z-index: 10;
+}
+
+.rain-ai-panel * {
+  box-sizing: border-box;
+}
+.rain-ai-panel button,
+.rain-ai-panel input,
+.rain-ai-panel select,
+.rain-ai-panel textarea {
+  font: inherit;
+}
+
+.rain-ai-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border-bottom: 1px solid #d7f4ff1f;
+}
+.rain-ai-logo {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #a5f0e7;
+  border: 1px solid #92e9d742;
+  background: radial-gradient(circle at 30% 20%, #6cdbd438, #123442);
+  box-shadow: 0 0 20px #5dc7c926;
+}
+.rain-ai-heading {
+  display: grid;
+  gap: 3px;
+  flex: 1;
+}
+.rain-ai-heading strong {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+.rain-ai-heading small {
+  color: #a0b9c5;
+  font-size: 11px;
+}
+.rain-ai-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #bbd0da;
+  cursor: pointer;
+}
+.rain-ai-icon:hover {
+  background: #b9d9e91a;
+  border-color: #ffffff24;
+}
+.rain-ai-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 12px 14px;
+}
+.rain-ai-tabs button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 34px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #9fb3c0;
+  cursor: pointer;
+  font-size: 11px;
+}
+.rain-ai-tabs button:hover,
+.rain-ai-tabs button.active {
+  color: #e9fbfc;
+  background: #9bd6de1a;
+  border-color: #bbeced2a;
+}
+.rain-ai-notice {
+  margin: 0 16px 10px;
+  padding: 9px 11px;
+  border: 1px solid #85cce153;
+  border-radius: 9px;
+  background: #3d78922b;
+  color: #ddf6fc;
+  line-height: 1.5;
+}
+.rain-ai-chat {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.rain-ai-chat-toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 0 14px 12px;
+}
+.rain-ai-chat-toolbar select {
+  flex: 1;
+  min-width: 0;
+}
+.rain-ai-chat-toolbar .button {
+  flex: none;
+}
+.rain-ai-messages {
+  flex: 1;
+  overflow: auto;
+  min-height: 100px;
+  padding: 8px 16px 20px;
+  scrollbar-color: #81a9b653 transparent;
+}
+.rain-ai-context-tools {
+  flex-shrink: 0;
+  max-height: 45%;
+  overflow: auto;
+  margin: 0 14px 8px;
+  padding: 10px;
+  border: 1px solid #9adad72b;
+  border-radius: 10px;
+  background: #102330;
+}
+.rain-ai-context-tools summary {
+  cursor: pointer;
+  color: #bee8e1;
+}
+.rain-ai-context-tools article {
+  padding-top: 12px;
+  border-top: 1px solid #ffffff20;
+  margin-top: 12px;
+}
+.rain-ai-context-tools textarea {
+  font:
+    11px/1.5 Consolas,
+    monospace;
+  min-height: 140px;
+  max-height: 300px;
+  resize: vertical;
+}
+.rain-ai-empty {
+  color: #abc1cd;
+  line-height: 1.7;
+  margin: 20px 2px;
+}
+.rain-ai-message {
+  max-width: 94%;
+  margin: 10px 0;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1px solid #cee7ed24;
+  background: #bbdce90d;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.rain-ai-message.user {
+  margin-left: auto;
+  background: #42a8bd22;
+  border-color: #78d8e04b;
+}
+.rain-ai-message small {
+  display: block;
+  margin-bottom: 6px;
+  color: #95b8c3;
+  font-size: 10px;
+}
+.rain-ai-message p {
+  margin: 0;
+  line-height: 1.55;
+  user-select: text;
+}
+.rain-ai-compose {
+  display: grid;
+  gap: 9px;
+  padding: 14px;
+  border-top: 1px solid #d7f4ff1f;
+}
+.rain-ai-compose > label {
+  color: #b8cbd5;
+  font-size: 11px;
+}
+.rain-ai-compose textarea {
+  width: 100%;
+  min-height: 70px;
+  max-height: 180px;
+  resize: vertical;
+}
+.rain-ai-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.rain-ai-settings {
+  overflow: auto;
+  padding: 2px 17px 24px;
+  line-height: 1.65;
+}
+.rain-ai-settings .field {
+  margin: 13px 0;
+}
+.rain-ai-settings h3 {
+  margin-top: 18px;
+}
+.rain-ai-check {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  line-height: 1.45;
+  font-size: 11px;
+  color: #c3d7df;
+}
+.rain-ai-check input {
+  flex: none;
+  margin-top: 2px;
+  accent-color: #65d3c6;
+}
+.rain-ai-panel button:focus-visible,
+.rain-ai-panel input:focus-visible,
+.rain-ai-panel select:focus-visible,
+.rain-ai-panel textarea:focus-visible {
+  outline: 2px solid #84ebdb;
+  outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+  .rain-ai-panel {
+    width: min(100vw, 450px);
+    max-width: 100vw;
+    min-width: 280px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rain-ai-panel * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+/* Each panel child may shrink within a user-resized 300px sidebar. */
+.rain-ai-panel {
+  overflow-x: hidden;
+}
+.rain-ai-panel
+  :is(
+    .field,
+    .rain-ai-heading,
+    .rain-ai-settings,
+    .rain-ai-chat,
+    .rain-ai-compose,
+    .rain-ai-context-tools
+  ) {
+  min-width: 0;
+  max-width: 100%;
+}
+.rain-ai-panel :is(p, small, strong, summary) {
+  overflow-wrap: anywhere;
+}
+.rain-ai-panel :is(input, select, textarea) {
+  min-width: 0;
+  max-width: 100%;
+}
+.rain-ai-panel .button {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  max-width: 100%;
+  line-height: 1.45;
+}
+.rain-ai-header {
+  gap: 10px;
+  padding: 14px;
+}
+.rain-ai-logo,
+.rain-ai-icon {
+  flex-shrink: 0;
+}
+.rain-ai-tabs {
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.rain-ai-tabs button {
+  flex: 1 1 80px;
+  min-width: 0;
+  white-space: normal;
+  line-height: 1.35;
+  padding: 8px 5px;
+}
+.rain-ai-tabs button svg {
+  flex-shrink: 0;
+}
+.rain-ai-chat-toolbar {
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.rain-ai-chat-toolbar select {
+  flex: 1 1 150px;
+  width: 0;
+  max-width: 100%;
+}
+.rain-ai-chat-toolbar .button {
+  flex: 0 1 auto;
+}
+.rain-ai-onboarding {
+  margin: 0 14px 12px;
+  padding: 12px;
+  border: 1px solid #9adad72b;
+  border-radius: 10px;
+  background: #102330;
+  line-height: 1.5;
+}
+.rain-ai-onboarding p {
+  margin: 0 0 10px;
+}
+.rain-ai-context-tools .field select {
+  width: 100%;
+}
+.rain-ai-compose {
+  flex-shrink: 0;
+}

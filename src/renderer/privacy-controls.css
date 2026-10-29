@@ -1,0 +1,84 @@
+.privacy-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0 12px;
+}
+.privacy-preset {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  text-align: left;
+  background: color-mix(in srgb, currentColor 3%, transparent);
+}
+.privacy-preset[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.privacy-preset strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.privacy-preset span {
+  font-size: 12px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+.privacy-policy-summary {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  margin: 16px 0;
+}
+.privacy-policy-summary p {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.privacy-policy-summary p:last-child {
+  margin-bottom: 0;
+}
+.privacy-controls .privacy-exceptions {
+  margin: 16px 0;
+}
+.privacy-controls .privacy-exceptions summary {
+  cursor: pointer;
+  padding: 10px 0;
+}
+.privacy-controls .privacy-exceptions code {
+  overflow-wrap: anywhere;
+}
+.privacy-apply-area {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.privacy-change-state {
+  color: inherit;
+  font-weight: 500;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.privacy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.privacy-data-controls {
+  margin-top: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.privacy-data-controls h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+.privacy-data-option .hint {
+  margin-top: 0;
+}
+@media (max-width: 820px) {
+  .privacy-presets {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,463 @@
+.privacy-hub-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.privacy-hub [hidden] {
+  display: none;
+}
+.privacy-hub [role="tab"][aria-selected="true"] {
+  border-color: var(--accent);
+}
+.privacy-radar-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.privacy-radar-stats > div {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.privacy-radar-stats dd {
+  margin: 8px 0 0;
+  font-size: 1.4em;
+}
+.proxy-route-fields {
+  border: 0;
+  margin: 0 0 12px;
+  padding: 0;
+  min-width: 0;
+}
+.privacy-hub-section {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 12px;
+  margin: 12px 0;
+  scroll-margin-top: 12px;
+}
+.privacy-hub-section > summary {
+  cursor: pointer;
+  padding: 18px;
+  font-weight: 600;
+  font-size: 1em;
+}
+.privacy-hub-section > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+.privacy-hub-section[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+.privacy-hub-content {
+  padding: 16px;
+}
+.privacy-hub-content > .section:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 700px) {
+  .privacy-hub-content {
+    padding: 8px;
+  }
+  .privacy-hub-nav .button {
+    text-align: left;
+  }
+}
+
+[data-security-center] {
+  font-size: 14px;
+}
+[data-security-center] h2 {
+  font-size: 20px;
+}
+[data-security-center] h3 {
+  font-size: 16px;
+}
+[data-security-center] .list-row {
+  padding: 10px 12px;
+  min-height: 0;
+}
+[data-security-center] select {
+  font-size: 13px;
+  max-width: 240px;
+}
+.shield-v2 {
+  font-size: 14px;
+  color: var(--text);
+  max-width: 1280px;
+  margin: auto;
+}
+.shield-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 0 28px;
+}
+.shield-brand {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.shield-brand > svg {
+  color: var(--accent);
+  padding: 12px;
+  box-sizing: content-box;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+}
+.shield-eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.shield-header h2 {
+  font-size: 27px;
+  letter-spacing: 0.5px;
+  margin: 4px 0;
+}
+.shield-header p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 13px;
+}
+.shield-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 330px;
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 0 12px;
+}
+.shield-search input {
+  border: 0;
+  background: transparent;
+  min-width: 0;
+  width: 100%;
+  font-size: 13px;
+  padding: 12px 0;
+}
+.shield-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.shield-tabs {
+  display: grid;
+  gap: 5px;
+  position: sticky;
+  top: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+}
+.shield-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 13px 10px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background 180ms,
+    border-color 180ms,
+    color 180ms;
+}
+.shield-tabs button[aria-selected="true"] {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.shield-tabs button:hover {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--text);
+}
+.shield-v2 :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.shield-main {
+  min-width: 0;
+}
+.shield-main .privacy-hub-section {
+  margin: 0 0 20px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.shield-main .privacy-hub-section > header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.shield-main .privacy-hub-section > header h3 {
+  font-size: 15px;
+  margin: 0;
+}
+.shield-main .privacy-hub-content {
+  padding: 20px;
+}
+.shield-result {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin: 8px 0;
+  color: var(--text);
+  background: var(--panel);
+  text-align: left;
+  cursor: pointer;
+}
+.shield-stat-grid,
+.shield-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+.shield-stat,
+.shield-mode {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: 0 8px 24px #0000000a;
+}
+.shield-stat small {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.shield-stat strong {
+  font-size: 15px;
+}
+.shield-mode {
+  text-align: left;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.5;
+}
+.shield-mode[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+}
+.shield-mode strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.shield-mode span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.shield-overview-note {
+  border-left: 2px solid var(--accent);
+  padding: 12px 16px;
+  background: var(--panel);
+  border-radius: 0 10px 10px 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+@media (max-width: 900px) {
+  .shield-layout {
+    grid-template-columns: 1fr;
+  }
+  .shield-tabs {
+    position: static;
+    display: flex;
+    overflow: auto;
+  }
+  .shield-tabs button {
+    flex-shrink: 0;
+    max-width: 180px;
+  }
+  .shield-header {
+    flex-wrap: wrap;
+  }
+  .shield-stat-grid,
+  .shield-mode-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shield-v2 * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+.shield-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.shield-status-card {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 8px 12px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+}
+.shield-status-card svg {
+  color: var(--accent);
+  grid-row: span 3;
+}
+.shield-status-card span,
+.shield-status-card small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.shield-status-card strong {
+  font-size: 15px;
+}
+.shield-mode-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  color: var(--text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  line-height: 1.5;
+  transition:
+    border-color 180ms,
+    background 180ms;
+}
+.shield-mode-card svg {
+  color: var(--accent);
+}
+.shield-mode-card strong {
+  font-size: 12px;
+  letter-spacing: 0.7px;
+}
+.shield-mode-card span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.shield-mode-card[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+}
+.shield-mode-confirm,
+.shield-diagnostic-status {
+  border: 1px solid var(--line);
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--panel);
+  margin: 16px 0;
+  line-height: 1.6;
+}
+.shield-overview-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+@media (max-width: 700px) {
+  .shield-status-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.shield-v2 {
+  --text: #e5eef5;
+  --muted: #a7b9c8;
+}
+/* Keep Shield controls readable at narrow widths and large UI font settings. */
+.shield-v2 .page-actions,
+.shield-v2 .button-row {
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+.shield-v2 .button {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  min-width: 0;
+  line-height: 1.45;
+  font-size: 12px;
+  padding: 9px 12px;
+}
+.shield-v2 :is(.section, .card, .field, .list-row, .list-main, .warning) {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.shield-v2 :is(p, small, strong, dd, code) {
+  overflow-wrap: anywhere;
+}
+.shield-v2 .section {
+  padding: 18px;
+}
+.shield-v2 .section h2 {
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+.shield-v2 .section h3 {
+  font-size: 15px;
+}
+.shield-v2 :is(input, select, textarea) {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+.shield-v2 .warning > p {
+  min-width: 0;
+}
+.shield-v2 .list-main strong {
+  white-space: normal;
+}
+@media (max-width: 1150px) {
+  .shield-v2 .list-row {
+    flex-wrap: wrap;
+    padding: 12px 8px;
+    gap: 10px;
+  }
+  .shield-v2 .list-row > select {
+    width: 100%;
+    max-width: 100%;
+  }
+  .shield-v2 .shield-layout {
+    gap: 14px;
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+  .shield-v2 .shield-mode-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .shield-v2 .shield-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shield-v2 .shield-header {
+    padding-bottom: 16px;
+  }
+  .shield-v2 .privacy-hub-content {
+    padding: 12px;
+  }
+}

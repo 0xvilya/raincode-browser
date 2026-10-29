@@ -1,0 +1,102 @@
+.scene-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+.settings-shortcuts {
+  grid-column: 1/-1;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.settings-grid > section {
+  scroll-margin-top: 18px;
+}
+.scene-choice {
+  border: 1px solid #ffffff25;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: left;
+  min-width: 0;
+}
+.scene-choice[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: #ffffff15;
+}
+.scene-choice > span:last-child {
+  display: block;
+  padding: 8px 3px;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.scene-thumbnail {
+  display: block;
+  position: relative;
+  height: 85px;
+  overflow: hidden;
+  border-radius: 6px;
+  isolation: isolate;
+  pointer-events: none;
+}
+.app .scene-thumbnail .scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  filter: none;
+  transform: none;
+  transition: none;
+}
+.color-controls {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.color-controls label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.color-controls input[type="color"] {
+  width: 52px;
+  height: 36px;
+  padding: 3px;
+  cursor: pointer;
+}
+/* Tint the actual browser chrome, never webpage pixels or text filters.
+   Dark surfaces and a light accent preserve legibility even for black/white input. */
+.app.custom-colors:not(.high-contrast) {
+  --panel: color-mix(in srgb, var(--shell-color) 35%, #0b1119);
+  --accent: color-mix(in srgb, var(--chosen-accent) 65%, white);
+}
+.custom-colors:not(.high-contrast)
+  :is(
+    .titlebar,
+    .toolbar,
+    .sidebar,
+    .statusbar,
+    .vertical-strip,
+    .rain-ai-panel
+  ) {
+  background: color-mix(in srgb, var(--shell-color) 40%, #080f17);
+}
+.custom-colors:not(.high-contrast) .card {
+  background: var(--panel);
+}
+.custom-colors:not(.high-contrast)
+  :is(.tab.active, .sidebar-ai.selected, .button.primary) {
+  background: color-mix(in srgb, var(--shell-color) 55%, #15212e);
+  border-color: var(--accent);
+}
+.custom-colors :is(input[type="range"], progress) {
+  accent-color: var(--accent);
+}
+.custom-colors :is(button, input, select, textarea):focus-visible {
+  outline-color: var(--accent);
+}
+@media (max-width: 700px) {
+  .scene-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

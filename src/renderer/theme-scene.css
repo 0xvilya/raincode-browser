@@ -1,0 +1,40 @@
+.app .scene:has(> svg) {
+  background: none;
+  filter: brightness(var(--scene-brightness, 0.7)) saturate(0.84);
+}
+
+.scene > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.scene.scene-realistic {
+  background: none;
+}
+.app > .scene.scene-realistic {
+  filter: brightness(var(--scene-brightness, 0.7)) saturate(0.95) contrast(1.03);
+}
+.scene-realistic > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Distinct scenes retain the existing foreground shading for legible UI. */
+.app .scene.scene-minimal-light:has(> svg) {
+  filter: brightness(var(--scene-brightness, 0.7)) saturate(0.65);
+}
+
+.app .scene.scene-minimal-dark:has(> svg),
+.app .scene.scene-space:has(> svg) {
+  filter: brightness(var(--scene-brightness, 0.7)) saturate(0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene:has(> svg) {
+    transform: none;
+    transition: none;
+  }
+}
