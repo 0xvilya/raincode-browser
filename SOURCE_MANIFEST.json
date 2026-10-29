@@ -1108,8 +1108,8 @@
     },
     {
       "path": "tests/security/secret-store.test.ts",
-      "bytes": 10132,
-      "sha256": "ebaa6b7f7bb0b9c21adb3d79d4f37d6cdc0a0683d01539bdc7d59894eadcea18"
+      "bytes": 10321,
+      "sha256": "fbe79922bcd405e05451bdb186fe9eb3a11921d5507c83b8a22e4b7be76e7352"
     },
     {
       "path": "tests/security/security-center.test.ts",
