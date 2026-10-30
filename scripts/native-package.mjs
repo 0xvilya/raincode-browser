@@ -21,6 +21,11 @@ if (process.argv.includes("--configure")) {
   const config = {
     ...pkg.build,
     directories: { ...pkg.build.directories, output },
+    linux: {
+      ...pkg.build.linux,
+      target: ["AppImage"],
+      executableName: "raincode-browser",
+    },
     extraResources: [],
     extraFiles: [],
     artifactName: `RainCode-${pkg.version}-${platform}-${process.arch}-preview.\${ext}`,
