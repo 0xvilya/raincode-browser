@@ -25,6 +25,14 @@ test("local code review never executes source and shares only findings in AI dra
   expect(
     await shell.evaluate(() => Reflect.has(globalThis, "RAIN_REVIEW_EXECUTED")),
   ).toBe(false);
+  await panel.getByRole("button", { name: "Prepare Nexus handoff" }).click();
+  const handoff = JSON.parse(
+    await panel.getByLabel("Nexus handoff packet").inputValue(),
+  );
+  expect(handoff.format).toBe("rainforge.handoff.v1");
+  expect(handoff.source).toBe("raincode");
+  expect(handoff.context).toContain("dynamic-eval");
+  expect(JSON.stringify(handoff)).not.toContain("private-source-marker");
   await panel
     .getByRole("button", { name: "Explain findings — AI draft", exact: true })
     .click();

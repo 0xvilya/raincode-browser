@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { reviewCode, type CodeReview as Review } from "../shared/code-review";
 import type { BrowserState } from "../shared/contracts";
-import { useBrowser } from "./store";
+import { send, useBrowser } from "./store";
 
 export function CodeReview({ browser }: { browser: BrowserState }) {
   const ru = browser.settings.locale === "ru";
@@ -11,10 +11,12 @@ export function CodeReview({ browser }: { browser: BrowserState }) {
   const [source, setSource] = useState("");
   const [report, setReport] = useState<Review>();
   const [error, setError] = useState(false);
+  const [handoff, setHandoff] = useState("");
   useEffect(() => {
     setSource("");
     setReport(undefined);
     setError(false);
+    setHandoff("");
   }, [profileId]);
   return (
     <section
@@ -41,6 +43,7 @@ export function CodeReview({ browser }: { browser: BrowserState }) {
           onChange={(e) => {
             setSource(e.target.value);
             setReport(undefined);
+            setHandoff("");
             setError(false);
           }}
         />
@@ -66,6 +69,7 @@ export function CodeReview({ browser }: { browser: BrowserState }) {
           onClick={() => {
             setSource("");
             setReport(undefined);
+            setHandoff("");
             setError(false);
           }}
         >
@@ -76,12 +80,10 @@ export function CodeReview({ browser }: { browser: BrowserState }) {
           disabled={!report || !browser.settings.aiEnabled}
           onClick={() => {
             if (!report || !profileId) return;
-            useBrowser
-              .getState()
-              .setAiReviewDraft({
-                profileId,
-                text: `${ru ? "Объясни эвристические находки. Исходный код не приложен, уязвимости не подтверждены. Не выполняй действий." : "Explain these heuristic findings. Source is not included; vulnerabilities are not confirmed. Do not execute actions."}\n${JSON.stringify(report, null, 2)}`,
-              });
+            useBrowser.getState().setAiReviewDraft({
+              profileId,
+              text: `${ru ? "Объясни эвристические находки. Исходный код не приложен, уязвимости не подтверждены. Не выполняй действий." : "Explain these heuristic findings. Source is not included; vulnerabilities are not confirmed. Do not execute actions."}\n${JSON.stringify(report, null, 2)}`,
+            });
             window.dispatchEvent(new Event("raincode-open-ai"));
           }}
         >
@@ -90,6 +92,63 @@ export function CodeReview({ browser }: { browser: BrowserState }) {
             : "Explain findings — AI draft"}
         </button>
       </div>
+      <section aria-label="RainCode + Nexus">
+        <p className="hint">
+          {ru
+            ? "Nexus создаёт файлы и помогает исправлять проекты с локальными моделями. Перенесите результаты проверки в Nexus → Код → RainCode + Nexus."
+            : "Nexus creates files and helps repair projects with local models. Bring these findings into Nexus → Code → RainCode + Nexus."}
+        </p>
+        <div className="button-row">
+          <button
+            className="button"
+            disabled={!report}
+            onClick={() => {
+              if (!report) return;
+              setHandoff(
+                JSON.stringify(
+                  {
+                    format: "rainforge.handoff.v1",
+                    source: "raincode",
+                    task: ru
+                      ? "Объясни находки проверки и предложи исправления. Сначала запроси необходимые исходные файлы."
+                      : "Explain the review findings and suggest fixes. First ask for any necessary source files.",
+                    context: JSON.stringify(report).slice(0, 3000),
+                  },
+                  null,
+                  2,
+                ),
+              );
+            }}
+          >
+            {ru ? "Подготовить пакет для Nexus" : "Prepare Nexus handoff"}
+          </button>
+          <button
+            className="button"
+            onClick={() =>
+              void send({
+                type: "tab.create",
+                url: "https://0xvilya.github.io/my-projects/",
+              })
+            }
+          >
+            {ru ? "Проекты RainForge" : "RainForge projects"} ↗
+          </button>
+        </div>
+        {handoff && (
+          <label className="field">
+            {ru
+              ? "Скопируйте пакет в Nexus. Исходный код не включён."
+              : "Copy this packet into Nexus. Source code is excluded."}
+            <textarea
+              readOnly
+              aria-label="Nexus handoff packet"
+              rows={8}
+              value={handoff}
+              onFocus={(event) => event.currentTarget.select()}
+            />
+          </label>
+        )}
+      </section>
       {error && (
         <p role="alert">
           {ru

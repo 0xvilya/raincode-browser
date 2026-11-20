@@ -1,4 +1,4 @@
-# RainCode Browser 0.5.23
+# RainCode Browser 0.5.24
 
 A Chromium/Electron browser with a calm Rain interface, local AI connections, developer tools and explicit privacy controls.
 
@@ -65,3 +65,6 @@ AI access is permission-scoped. Private/Tor context is blocked by default. Autom
 [Contributing](CONTRIBUTING.md) · [Build details](BUILDING.md) · [Changelog](CHANGELOG.md)
 
 RainCode application source: [MIT](LICENSE). Third-party components and artwork have separate notices in [LICENSES.md](LICENSES.md), [ASSETS.md](ASSETS.md) and [scene provenance](public/scenes/PROVENANCE.md). The scenes are original AI artwork, not documentary photographs. Publishing this source does not authorize redistribution of an incomplete Tor binary/source bundle.
+
+
+Nexus integration exports code-review findings as a reviewed JSON handoff packet. Source code is excluded from the packet. Public preview installers are unsigned and do not include Tor. Native package tests run before release assets are published.

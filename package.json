@@ -1,7 +1,7 @@
 {
   "name": "raincode-browser",
   "productName": "RainCode Browser",
-  "version": "0.5.23",
+  "version": "0.5.24",
   "description": "A private Chromium browser and calm developer workspace",
   "author": "Vilya",
   "license": "MIT",

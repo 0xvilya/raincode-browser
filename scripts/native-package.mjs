@@ -9,15 +9,13 @@ const requestedTarget = process.argv
 if (requestedTarget && !configure)
   throw Error("Target override is configuration-only");
 const platform = requestedTarget || process.platform;
-if (!["darwin", "linux"].includes(platform))
-  throw Error(
-    "This preview pipeline supports macOS/Linux only; Windows distribution requires the Tor source bundle review",
-  );
+if (!["darwin", "linux", "win32"].includes(platform))
+  throw Error("Run this preview pipeline on Windows, macOS or Linux");
 const pkg = JSON.parse(await readFile("package.json", "utf8"));
 const output = `release/native-${platform}-${process.arch}`;
 await mkdir("artifacts", { recursive: true });
 if (process.argv.includes("--configure")) {
-  // The existing Windows runtime is never copied into a different OS package.
+  // Public preview installers omit the separately distributed Tor runtime on every OS.
   const config = {
     ...pkg.build,
     directories: { ...pkg.build.directories, output },
@@ -42,9 +40,21 @@ if (process.argv.includes("--configure")) {
           process.arch === "arm64" ? "mac-arm64" : "mac",
           "RainCode Browser.app/Contents/MacOS/RainCode Browser",
         )
-      : path.join(output, "linux-unpacked/raincode-browser");
+      : platform === "win32"
+        ? path.join(output, "win-unpacked/RainCode Browser.exe")
+        : path.join(output, "linux-unpacked/raincode-browser");
   if (!(await stat(executable)).isFile())
     throw Error("Packaged executable missing");
+  const resources =
+    platform === "darwin"
+      ? path.resolve(executable, "../../Resources")
+      : path.join(path.dirname(executable), "resources");
+  try {
+    await stat(path.join(resources, "tor"));
+    throw Error("Preview package unexpectedly contains a Tor runtime");
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
   if (!process.env.GITHUB_ENV) throw Error("GITHUB_ENV is required in CI");
   await import("node:fs/promises").then(({ appendFile }) =>
     appendFile(
@@ -54,7 +64,7 @@ if (process.argv.includes("--configure")) {
   );
   const files = [];
   for (const name of await readdir(output)) {
-    if (!/\.(dmg|zip|AppImage|deb)$/.test(name)) continue;
+    if (!/\.(dmg|zip|AppImage|deb|exe)$/.test(name)) continue;
     const data = await readFile(path.join(output, name));
     files.push({
       name,
@@ -64,7 +74,7 @@ if (process.argv.includes("--configure")) {
   }
   if (!files.length) throw Error("No installer artifacts produced");
   await writeFile(
-    path.join(output, "SHA256SUMS.json"),
+    path.join(output, "SHA256SUMS-" + platform + "-" + process.arch + ".json"),
     JSON.stringify(
       {
         version: pkg.version,

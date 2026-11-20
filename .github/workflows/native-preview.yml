@@ -1,14 +1,20 @@
 name: Native preview packages
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [package.json, src/renderer/CodeReview.tsx, scripts/native-package.mjs, .github/workflows/native-preview.yml]
 permissions:
   contents: read
+concurrency:
+  group: native-preview-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   package:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
@@ -22,14 +28,17 @@ jobs:
         with:
           version: "11.25.0"
       - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm exec vitest run --exclude tests/tor/tor-integrity.test.ts
       - run: pnpm build
       - run: node scripts/native-package.mjs --configure
       - run: pnpm exec electron-builder --config artifacts/native-builder.json --publish never
       - run: node scripts/native-package.mjs --locate
       - if: runner.os == 'Linux'
-        run: xvfb-run -a pnpm exec playwright test tests/e2e/browser.spec.ts tests/e2e/ai-panel-layout.spec.ts
-      - if: runner.os == 'macOS'
-        run: pnpm exec playwright test tests/e2e/browser.spec.ts tests/e2e/ai-panel-layout.spec.ts
+        run: xvfb-run -a pnpm exec playwright test tests/e2e/browser.spec.ts tests/e2e/ai-panel-layout.spec.ts tests/e2e/code-review.spec.ts
+      - if: runner.os != 'Linux'
+        run: pnpm exec playwright test tests/e2e/browser.spec.ts tests/e2e/ai-panel-layout.spec.ts tests/e2e/code-review.spec.ts
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: native-preview-${{ runner.os }}-${{ runner.arch }}
@@ -38,7 +47,55 @@ jobs:
             release/native-*/*.zip
             release/native-*/*.AppImage
             release/native-*/*.deb
-            release/native-*/SHA256SUMS.json
+            release/native-*/*.exe
+            release/native-*/SHA256SUMS-*.json
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 30
 # Unsigned test artifacts without Tor. Publish only after native validation/review.
+
+  publish:
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: native-preview-*
+          path: packages
+          merge-multiple: true
+      - name: Publish tested preview assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(node -p "JSON.parse(require('fs').readFileSync('package.json','utf8')).version")
+          tag="v${version}-preview"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --prerelease --title "RainCode ${version} preview" --notes "Unsigned preview installers. Tor is not bundled. Basic native browser, layout and code-review tests passed for each published platform. See the platform SHA-256 files."
+          fi
+          mapfile -d '' files < <(find packages -type f \( -name '*.dmg' -o -name '*.exe' -o -name '*.AppImage' -o -name '*.deb' -o -name '*.zip' -o -name 'SHA256SUMS-*.json' \) -print0)
+          test "${#files[@]}" -gt 0
+          tag_sha=$(gh api "repos/$GH_REPO/git/ref/tags/$tag" --jq '.object.sha')
+          if [ "$tag_sha" != "$GITHUB_SHA" ]; then
+            echo "Refusing to attach different source revisions to the same release tag."
+            exit 1
+          fi
+          gh api "repos/$GH_REPO/releases/tags/$tag" > release.json
+          for file in "${files[@]}"; do
+            name=$(basename "$file")
+            digest=$(sha256sum "$file" | cut -d ' ' -f 1)
+            existing=$(jq -r --arg name "$name" '.assets[] | select(.name == $name) | .digest // "unknown"' release.json)
+            if [ -n "$existing" ]; then
+              if [ "$existing" != "sha256:$digest" ]; then
+                echo "Existing release asset differs from the validated file: $name"
+                exit 1
+              fi
+              echo "Verified existing release asset: $name"
+            else
+              gh release upload "$tag" "$file"
+            fi
+          done
